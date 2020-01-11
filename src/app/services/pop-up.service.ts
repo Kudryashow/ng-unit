@@ -7,6 +7,11 @@ export interface IPPObject {
   options?: Object;
 }
 
+export interface ppOptions {
+  title?: string,
+  message?: string
+}
+
 export enum ppEvent {'open', 'close'}
 
 @Injectable({
@@ -16,9 +21,9 @@ export class PopUpService {
 
   private ppDialog = new ReplaySubject<IPPObject>();
 
-  private ppDialog$ = this.ppDialog.asObservable();
+  public ppDialog$ = this.ppDialog.asObservable();
 
-  open(component, options?: Object) {
+  open(component, options?: Array<ppOptions>) {
     this.ppDialog.next({ppEvent: ppEvent.open, component: component, options: options});
   }
 
