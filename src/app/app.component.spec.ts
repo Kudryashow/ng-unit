@@ -1,13 +1,19 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { PopUpService } from "./services/pop-up.service";
-const popupServiceStub = {
-  open: () => {}
-};
+
+class popupServiceStub {
+  open() {}
+}
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let popup: PopUpService;
+
   beforeEach(async(() => {
+    // noinspection JSIgnoredPromiseFromCall
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
@@ -19,30 +25,31 @@ describe('AppComponent', () => {
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
+  it('should create the comp', ()  => {
+    // noinspection JSIgnoredPromiseFromCall
+    expect(component).toBeTruthy();
+  });
   it(`should have as title 'unit'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
+    // noinspection JSIgnoredPromiseFromCall
     expect(app.title).toEqual('unit');
   });
-
   it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
+    // noinspection JSIgnoredPromiseFromCall
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to unit!');
   });
 
   it('should called open', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const popup = TestBed.get(PopUpService);
     const openSpy = spyOn(popup, 'open');
     fixture.detectChanges();
+    // noinspection JSIgnoredPromiseFromCall
     expect(openSpy).toHaveBeenCalled();
   });
 
